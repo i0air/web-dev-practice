@@ -1,0 +1,9 @@
+{
+    "printWidth": 160,
+    "htmlWhitespaceSensitivity": "ignore",
+    "endOfLine": "auto",
+    "plugins": [
+      "prettier-plugin-css-order"
+    ]
+  }
+  
