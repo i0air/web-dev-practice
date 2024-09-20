@@ -15,7 +15,7 @@ const x = d3
 
 const y = d3
   .scalePoint()
-  .domain(props.nodes.map((d) => d.id))
+  .domain(props.nodes.map((d) => d.id).sort(d3.descending))
   .range([props.height - props.padding[2], props.padding[0]]);
 
 const xAxis = (g: d3.Selection<SVGGElement, TimelineNode, any, unknown>, x: d3.ScaleTime<number, number>) =>

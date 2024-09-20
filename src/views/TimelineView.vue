@@ -20,22 +20,16 @@ const links = [
   { source: "2", target: "2-1" },
 ];
 
-const padding = [20, 20, 20, 50];
+const padding = [20, 20, 20, 150];
 
 const width = 600;
 const height = 300;
 
-const props = reactive<TimelineProps>({
-  nodes,
-  links,
-  padding,
-  width,
-  height,
-});
+const options = reactive<TimelineProps>({ nodes, links, padding, width, height });
 </script>
 
 <template>
-  <timeline :="props" />
+  <timeline :="options" />
 </template>
 
 <style lang="scss" scoped></style>
