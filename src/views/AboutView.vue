@@ -1,6 +1,13 @@
+<script lang="ts" setup>
+import LinePlot from "@/components/LinePlot.vue";
+import * as d3 from "d3";
+
+const data = d3.ticks(-Math.PI, Math.PI, 200).map(Math.sin);
+</script>
+
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <LinePlot :data="data" />
   </div>
 </template>
 
