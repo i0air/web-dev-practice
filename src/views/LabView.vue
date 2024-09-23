@@ -3,8 +3,9 @@ import { Color, Line, Rect, Svg, SVG, type NumberAlias } from "@svgdotjs/svg.js"
 import { onMounted, ref } from "vue";
 
 const el = ref<HTMLDivElement>();
+const step = 0.02;
+const size = 10;
 let draw: Svg;
-const rect = ref<Rect>();
 
 function init() {
   if (!el.value) return;
@@ -15,20 +16,20 @@ function init() {
   const bg = draw.rect("50%", "100%").fill("#0002");
 
   const gline = draw.group();
-  gline.line(0, 80, 190, 80).stroke({ width: 1, color: "#ffffff80" });
-  gline.line(0, 130, 190, 130).stroke({ width: 1, color: "#ffffff80" });
+  gline.line(0, 80, 200, 80).stroke({ width: 1, color: "#ffffff80" });
+  gline.line(0, 120, 200, 120).stroke({ width: 1, color: "#ffffff80" });
 
   const g0 = draw.group();
   for (let i = 0; i < 10; i++) {
-    g0.rect(10, 10)
-      .move(i * 20, 75)
-      .fill(Color.random().toHex());
+    g0.rect(size, size)
+      .move(i * 20, 80 - size / 2)
+      .fill(Color.random().toHex() + "a0");
   }
 
   const g1 = draw.group();
   for (let i = 0; i < 10; i++) {
-    g1.rect(10, 10)
-      .move(i * 20, 125)
+    g1.rect(size, size)
+      .move(i * 20, 120 - size / 2)
       .fill(Color.random().toHex());
   }
 
@@ -40,7 +41,7 @@ function init() {
         const box = l0.bbox();
         (<Line>l0).plot(scale(box.x, ev.offsetX, ev.deltaY), box.y, scale(box.x2, ev.offsetX, ev.deltaY), box.y2);
       } else {
-        l0.dy(ev.deltaY / 100);
+        l0.dx(ev.deltaY * step);
       }
     });
 
@@ -48,7 +49,7 @@ function init() {
       if (ev.shiftKey) {
         r.x(scale(r.x(), ev.offsetX, ev.deltaY));
       } else {
-        r.dy(ev.deltaY / 100);
+        r.dx(ev.deltaY * step);
       }
     });
 
@@ -56,7 +57,7 @@ function init() {
       if (ev.shiftKey) {
         r.x(scale(r.x(), ev.offsetX, ev.deltaY));
       } else {
-        r.dy(ev.deltaY / 100);
+        r.dx(ev.deltaY * step);
       }
     });
   });

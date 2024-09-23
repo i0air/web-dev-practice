@@ -3,6 +3,7 @@ import * as d3 from "d3";
 import { type D3ZoomEvent } from "d3";
 import { onMounted, ref } from "vue";
 import type { TimelineLink, TimelineNode, TimelineProps } from ".";
+import { Color } from "cesium";
 
 const props = defineProps<TimelineProps>();
 const svgRef = ref<SVGSVGElement>();
@@ -43,25 +44,22 @@ const yAxis = (g: d3.Selection<SVGGElement, TimelineNode, any, unknown>, y: d3.S
 const formatter = (item: d3.AxisDomain) => props.nodes.filter((n) => n.id === item + "")[0].name;
 
 const setYAxisStyle = (g: d3.Selection<SVGGElement, TimelineNode, any, unknown>, lineWidth: number) => {
-  const colors = ["#419388", "#4795eb", "#d83965"];
+  // const colors = ["#419388", "#4795eb", "#d83965"];
   // 去除y轴的竖线
-  g.select(".domain").remove();
+  // g.select(".domain").remove();
 
   g.selectAll(".tick").each(function (d, i) {
+    // const color = Color.fromRandom({ alpha: 1 }).toCssHexString();
     const tick = d3.select(this);
-    // 在各项开头增加圆形节点
-    tick
-      .append("circle")
-      .attr("r", 8)
-      .attr("fill", colors[i % 3]);
+    // // 在各项开头增加圆形节点
+    // tick
+    //   .append("circle")
+    //   .attr("r", 8)
+    //   .attr("fill", colors[i % 3]);
     // 设置文本颜色，和圆形颜色保持一致
-    tick.select("text").attr("fill", colors[i % 3]);
+    tick.select("text"); //.attr("fill", color);
     // 设置横线颜色
-    tick
-      .select("line")
-      .attr("x1", lineWidth)
-      .attr("stroke", colors[i % 3])
-      .attr("stroke-width", 2);
+    tick.select("line").attr("x1", lineWidth).attr("stroke-width", 2); //.attr("stroke", color);
   });
 };
 
@@ -70,16 +68,18 @@ const setYAxisEvent = (g: d3.Selection<SVGGElement, TimelineNode, any, unknown>)
     const tick = d3.select(this);
     const left = +tick.select("line").attr("x2");
     const right = +tick.select("line").attr("x1");
-    const r = +tick.select("circle").attr("r");
+    const svgg = tick.node() as SVGGElement;
+    const bbox = svgg.getBBox();
+
     tick.select("text").on("click", function () {
       const rect = d3.select("rect");
       if (rect.empty()) {
         tick
           .insert("rect", ":first-child")
           .attr("x", left - 3)
-          .attr("y", -r - 5)
+          .attr("y", bbox.y - 5)
           .attr("width", right - left + 3)
-          .attr("height", r * 2 + 10)
+          .attr("height", bbox.height + 10)
           .attr("fill", "#AAA")
           .attr("fill-stroke", 0.2);
       } else {
@@ -103,7 +103,7 @@ const drawNodes = (
     .attr("cx", (n) => x(n.date))
     .attr("cy", (n) => y(n.id) || null)
     .attr("r", 6)
-    .attr("fill", "#00ffffa0");
+    .attr("fill", (d) => Color.fromRandom({ alpha: 0.6 }).toCssHexString());
 
 const drawLinks = (
   g: d3.Selection<SVGGElement, TimelineNode, any, unknown>,
@@ -121,12 +121,12 @@ const drawLinks = (
     .attr("d", (n) => {
       const x1 = x(nodes.filter((item) => item.id === n.source)[0].date);
       const x2 = x(nodes.filter((item) => item.id === n.target)[0].date);
-      const y1 = (y(n.source) || 0) - 5;
-      const y2 = (y(n.target) || 0) + 5;
+      const y1 = (y(n.source) || 0) + 6;
+      const y2 = (y(n.target) || 0) - 6;
       return `M ${x1},${y1} L ${x2},${y2}`;
     })
     .attr("pathLength", "90")
-    .attr("stroke", "skyblue")
+    .attr("stroke", "red")
     .attr("marker-end", "url(#arrow)");
 
 const drawTooltip = (g: d3.Selection<SVGSVGElement, TimelineNode, any, unknown>, links: TimelineLink[]) => {
@@ -181,8 +181,8 @@ const zoomd = d3.zoom<SVGSVGElement, TimelineNode>().on("zoom", (event: D3ZoomEv
   d3.selectAll<SVGPathElement, TimelineLink>(".arrowLine path").attr("d", (d) => {
     const x1 = rx(props.nodes.filter((item) => item.id === d.source)[0].date);
     const x2 = rx(props.nodes.filter((item) => item.id === d.target)[0].date);
-    const y1 = (y(d.source) || 0) - 5;
-    const y2 = (y(d.target) || 0) + 5;
+    const y1 = (y(d.source) || 0) + 6;
+    const y2 = (y(d.target) || 0) - 6;
     return `M ${x1},${y1} L ${x2},${y2}`;
   });
   d3.select<SVGGElement, TimelineNode>(".x-axis").call(xAxis, rx);
@@ -204,7 +204,7 @@ function init() {
     .attr("refY", 2.5)
     .attr("orient", "auto")
     .append("path")
-    .attr("fill", "skyblue")
+    .attr("fill", "red")
     .attr("d", "M0,0 v5 l7,-2.5 Z");
 
   // 设置剪切区域，避免节点和边超出轴线
@@ -234,16 +234,34 @@ function init() {
   svg.call(drawTooltip, props.links);
 }
 
+function fold() {
+  const id = "2-1";
+  // 1.移除指定Y轴轴线
+  d3.select(`.y-axis-${id}`).remove();
+  // 2.移除该轴线上所有节点
+  // 3.移除与该轴线上节点相连的边
+}
+
 onMounted(() => {
   init();
 });
 </script>
 
 <template>
+  <div class="toolbar">
+    <el-button type="primary" @click="fold">折叠</el-button>
+    <el-button type="primary">展开</el-button>
+  </div>
   <svg ref="svgRef" class="timeline"></svg>
 </template>
 
 <style lang="scss" scoped>
+.toolbar {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff80;
+  padding: 10px;
+}
 .timeline {
   background-color: #ffffff30;
 }
