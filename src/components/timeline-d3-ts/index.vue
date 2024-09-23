@@ -102,8 +102,8 @@ const drawNodes = (
     .join("circle")
     .attr("cx", (n) => x(n.date))
     .attr("cy", (n) => y(n.id) || null)
-    .attr("r", 5)
-    .attr("fill", "aqua");
+    .attr("r", 6)
+    .attr("fill", "#00ffffa0");
 
 const drawLinks = (
   g: d3.Selection<SVGGElement, TimelineNode, any, unknown>,

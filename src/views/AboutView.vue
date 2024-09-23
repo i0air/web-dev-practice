@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import LinePlot from "@/components/LinePlot.vue";
+import LinePlot from "@/components/line-plot-d3-ts.vue";
 import * as d3 from "d3";
 
 const data = d3.ticks(-Math.PI, Math.PI, 200).map(Math.sin);

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { TimelineProps } from "@/components/timeline";
-import Timeline from "@/components/timeline/index.vue";
-import ChartDemo from "@/components/ChartDemo.vue";
+import type { TimelineProps } from "@/components/timeline-d3-ts";
+import TimelineTs from "@/components/timeline-d3-ts/index.vue";
+import TimelineJs from "@/components/timeline-d3-js/index.vue";
 import { reactive } from "vue";
 
 const nodes = [
@@ -12,6 +12,7 @@ const nodes = [
   { id: "4", name: "节点4", date: new Date("2021-10-22 12:00:00") },
   { id: "3", name: "节点3", date: new Date("2021-10-21 12:00:00") },
   { id: "5", name: "节点5", date: new Date("2021-10-23 12:00:00") },
+  { id: "5", name: "节点5", date: new Date("2021-10-23 13:00:00") },
   { id: "6", name: "节点6", date: new Date("2021-10-24 12:00:00") },
 ];
 
@@ -29,7 +30,10 @@ const options = reactive<TimelineProps>({ nodes, links, padding, width, height }
 </script>
 
 <template>
-  <timeline :="options" />
+  <div>
+    <timeline-ts :="options" />
+    <!-- <timeline-js :="options" /> -->
+  </div>
 </template>
 
 <style lang="scss" scoped></style>
