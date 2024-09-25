@@ -6,14 +6,14 @@ const data = d3.ticks(-Math.PI, Math.PI, 200).map(Math.sin);
 </script>
 
 <template>
-  <div class="about">
+  <div class="d3-plot-view">
     <LinePlot :data="data" />
   </div>
 </template>
 
 <style>
 @media (min-width: 1024px) {
-  .about {
+  .d3-plot-view {
     display: flex;
     align-items: center;
     min-height: 100vh;

@@ -76,11 +76,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="el" class="lab"></div>
+  <div ref="el" class="svg-js-view"></div>
 </template>
 
 <style lang="scss" scoped>
-.lab {
-  background-color: #ffffff20;
+@media (min-width: 1024px) {
+  .svg-js-view {
+    position: relative;
+    background-color: #ffffff20;
+    width: 1024px;
+    height: 600px;
+  }
 }
 </style>

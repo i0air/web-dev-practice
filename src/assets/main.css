@@ -2,9 +2,9 @@
 
 #app {
   margin: 0 auto;
-  padding: 2rem;
-  max-width: 1920px;
-  font-weight: normal;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 a,
@@ -28,8 +28,8 @@ a,
   }
 
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

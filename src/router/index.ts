@@ -10,19 +10,19 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/lab",
-      name: "lab",
-      component: () => import("../views/LabView.vue"),
+      path: "/svgjs",
+      name: "svgjs",
+      component: () => import("../views/SvgJsView.vue"),
     },
     {
-      path: "/test",
-      name: "test",
-      component: () => import("../views/TestView.vue"),
+      path: "/d3/timeline",
+      name: "timeline",
+      component: () => import("../views/D3TimelineView.vue"),
     },
     {
-      path: "/about",
-      name: "about",
-      component: () => import("../views/AboutView.vue"),
+      path: "/d3/plot",
+      name: "plot",
+      component: () => import("../views/D3PlotView.vue"),
     },
     {
       path: "/pixi",

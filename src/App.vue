@@ -2,44 +2,33 @@
 import { ElConfigProvider } from "element-plus";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
 import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
 </script>
 
 <template>
   <el-config-provider :locale="zhCn">
     <header>
-      <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-      <div class="wrapper">
-        <HelloWorld msg="You did it!" />
-
-        <nav>
-          <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/lab">Lab</RouterLink>
-          <RouterLink to="/test">Test</RouterLink>
-          <RouterLink to="/about">About</RouterLink>
-          <RouterLink to="/pixi">Pixi</RouterLink>
-        </nav>
-      </div>
+      <nav>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/svgjs">SvgJs</RouterLink>
+        <RouterLink to="/d3/timeline">D3Timeline</RouterLink>
+        <RouterLink to="/d3/plot">D3Plot</RouterLink>
+        <RouterLink to="/pixi">Pixi</RouterLink>
+      </nav>
     </header>
-
     <RouterView />
   </el-config-provider>
 </template>
 
 <style scoped>
 header {
-  max-height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
   line-height: 1.5;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
 nav {
-  margin-top: 2rem;
   width: 100%;
   font-size: 12px;
   text-align: center;
@@ -67,26 +56,11 @@ nav a:first-of-type {
   header {
     display: flex;
     place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    place-items: flex-start;
   }
 
   nav {
-    margin-top: 1rem;
-    margin-left: -1rem;
-
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     font-size: 1rem;
-    text-align: left;
   }
 }
 </style>

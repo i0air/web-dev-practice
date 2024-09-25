@@ -253,21 +253,31 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="toolbar" :style="{ maxWidth: `${width}px` }">
-    <el-button type="primary" @click="fold">折叠</el-button>
-    <el-button type="primary">展开</el-button>
+  <div class="timeline-container" :style="{ width: `${width}px` }">
+    <div class="toolbar" :style="{ maxWidth: `${width}px` }">
+      <el-button type="primary" @click="fold">折叠</el-button>
+      <el-button type="primary">展开</el-button>
+    </div>
+    <svg ref="svgRef" class="timeline"></svg>
   </div>
-  <svg ref="svgRef" class="timeline"></svg>
 </template>
 
 <style lang="scss" scoped>
-.toolbar {
+.timeline-container {
   display: flex;
-  align-items: center;
-  background-color: #ffffff80;
-  padding: 10px;
-}
-.timeline {
-  background-color: #ffffff30;
+  position: relative;
+  flex-direction: column;
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff80;
+    padding: 10px;
+  }
+
+  .timeline {
+    flex: auto;
+    background-color: #ffffff30;
+  }
 }
 </style>
