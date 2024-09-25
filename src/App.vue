@@ -18,6 +18,7 @@ import HelloWorld from "./components/HelloWorld.vue";
           <RouterLink to="/lab">Lab</RouterLink>
           <RouterLink to="/test">Test</RouterLink>
           <RouterLink to="/about">About</RouterLink>
+          <RouterLink to="/pixi">Pixi</RouterLink>
         </nav>
       </div>
     </header>

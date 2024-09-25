@@ -24,6 +24,11 @@ const router = createRouter({
       name: "about",
       component: () => import("../views/AboutView.vue"),
     },
+    {
+      path: "/pixi",
+      name: "pixi",
+      component: () => import("../views/PixiView.vue"),
+    },
   ],
 });
 
