@@ -13,6 +13,7 @@ import { RouterLink, RouterView } from "vue-router";
         <RouterLink to="/d3/timeline">D3Timeline</RouterLink>
         <RouterLink to="/d3/plot">D3Plot</RouterLink>
         <RouterLink to="/pixi">Pixi</RouterLink>
+        <RouterLink to="/g6/tree">G6Tree</RouterLink>
       </nav>
     </header>
     <RouterView />

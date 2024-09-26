@@ -1,0 +1,70 @@
+{
+    "action": "IP_SESSION",
+    "time": "2024-09-26 10:17:27", // 数据时间
+    "data": {
+        "id": null,
+        "sessionId": 2077827636504624400,
+        "time": "2024-07-16 16:06:09", // 帧时间
+        "carrierId": 14756,
+        "uid": 73,
+        "carrierName": "NSS-9CR_4030.343",
+        "beam": "Global Beam",
+        "srcDevice": "加密设备",
+        "srcIp": "128.160.142.131", // 源IP
+        "srcPort": null,
+        "srcMac": null,
+        "srcIsLan": false,
+        "dstDevice": "加密设备",
+        "dstIp": "128.160.140.10", // 目标IP
+        "dstPort": null,
+        "dstMac": null,
+        "dstIsLan": false,
+        "datalinkProtocol": "PPP/MP",
+        "networkProtocol": "IP",
+        "transferProtocol": "50",
+        "appProtocol": "ESP",
+        "appSummary": {
+            "spi": "0x64668254"
+        },
+        "biz": "IPSecVPN",
+        "isEvent": false,
+        "compress": null,
+        "router": null,
+        "routerAdd": null,
+        "dataSize": 84,
+        "bizProtocol": "50",
+        "encrypt": "密",
+        "encryptType": 3,
+        "datalinkData": {
+            "mp": {
+                "mp_mp_first": true,
+                "mp_mp_frag": "0x30",
+                "mp_mp_fragment": "75",
+                "mp_mp_fragment_count": "1",
+                "mp_mp_fragments": null,
+                "mp_mp_last": true,
+                "mp_mp_reassembled_length": "106",
+                "mp_mp_seq": "3886696",
+                "mp_mp_sequence_num_cls": "0",
+                "mp_mp_sequence_num_reserved": false
+            },
+            "ppp": [
+                {
+                    "ppp_ppp_address": "0xff",
+                    "ppp_ppp_control": "0x03",
+                    "ppp_ppp_protocol": "0x003d"
+                },
+                {
+                    "ppp_ppp_protocol": "0x0021"
+                }
+            ]
+        },
+        "data": null,
+        "eventDesc": null,
+        "eventType": null,
+        "hasAppData": false,
+        "isConnected": true,
+        "srcCommNetId": null, // 源通信网ID
+        "dstCommNetId": null // 目标通信网ID
+    }
+}

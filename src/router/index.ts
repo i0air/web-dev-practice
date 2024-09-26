@@ -29,6 +29,11 @@ const router = createRouter({
       name: "pixi",
       component: () => import("../views/PixiView.vue"),
     },
+    {
+      path: "/g6/tree",
+      name: "tree",
+      component: () => import("../views/G6TreeView.vue"),
+    }
   ],
 });
 
