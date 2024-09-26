@@ -19,8 +19,8 @@ const links: TimelineLink[] = Mock.mock({
 }).array;
 
 const padding = [20, 20, 30, 70];
-const width = 1000;
-const height = 500;
+const width = 1024;
+const height = 600;
 
 const options = reactive<TimelineProps>({ nodes, lines, links, padding, width, height });
 </script>
