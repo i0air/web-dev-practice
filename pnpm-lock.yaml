@@ -17,6 +17,9 @@ importers:
       '@antv/g6':
         specifier: ^5.0.24
         version: 5.0.24(workerize-loader@2.0.2(webpack@5.95.0))
+      '@antv/layout':
+        specifier: 1.2.14-beta.8
+        version: 1.2.14-beta.8(workerize-loader@2.0.2(webpack@5.95.0))
       '@pixi/ui':
         specifier: ^2.1.5
         version: 2.1.5(pixi.js@8.4.1)

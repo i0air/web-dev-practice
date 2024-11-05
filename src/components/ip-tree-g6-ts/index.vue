@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { IPFrame, IPSession } from "@/typings/ip-session";
-import { Graph, type GraphData } from "@antv/g6";
+import { BaseEdge, type BaseEdgeStyleProps, ExtensionCategory, Graph, type GraphData, type PathArray, register, type AnimationStage, Line } from "@antv/g6";
 import { onMounted, reactive, ref } from "vue";
-// import comboData from "@/data/combo.json";
+import { Renderer as SvgRenderer } from "@antv/g-svg";
 
 const emits = defineEmits<{ (event: "added", nodes: number, edges: number, combos: number): void }>();
 const state = reactive<{ sessions: IPSession[]; data: GraphData; theme: number }>({
@@ -10,12 +10,41 @@ const state = reactive<{ sessions: IPSession[]; data: GraphData; theme: number }
   data: { nodes: [], edges: [], combos: [] },
   theme: 0,
 });
+
+// class FlowingEdge extends BaseEdge {
+//   protected getKeyPath(attributes: Required<BaseEdgeStyleProps>): PathArray {
+//     const { sourceNode, targetNode } = this;
+//     const [sx, sy] = sourceNode.getPosition();
+//     const [tx, ty] = targetNode.getPosition();
+//     const path: PathArray = [
+//       ["M", sx, sy],
+//       ["C", sx, ty, tx, sy, tx, ty],
+//     ];
+
+//     return path;
+//   }
+// }
+
+// register(ExtensionCategory.EDGE, "flowing-edge", FlowingEdge);
+
+class AntLine extends Line {
+  onCreate() {
+    this.shapeMap.key.animate([{ lineDashOffset: -20 }, { lineDashOffset: 0 }], {
+      duration: 500,
+      iterations: Infinity,
+    });
+  }
+}
+
+register(ExtensionCategory.EDGE, "ant-line", AntLine);
+
 const graphRef = ref<HTMLDivElement>();
 let graph: Graph;
 
 function init() {
   graph = new Graph({
     container: graphRef.value,
+    renderer: () => new SvgRenderer(),
     theme: "dark",
     node: {
       style: { size: 20, labelText: (d) => d.label + "" },
@@ -25,6 +54,10 @@ function init() {
       type: "combo-combined",
       comboPadding: 2,
       animation: false,
+    },
+    edge: {
+      type: "ant-line",
+      style: { lineDash: [10, 10] },
     },
     behaviors: ["drag-canvas", "zoom-canvas", "drag-element"],
   });
@@ -42,7 +75,7 @@ function dsrid(frame: IPFrame) {
 
 function add(session: IPSession) {
   state.sessions.push(session);
-  // 处理 session，生成 data
+
   const f = session.data;
   const data: GraphData = {
     nodes: [
@@ -88,11 +121,7 @@ function add(session: IPSession) {
   graph.render();
 }
 
-function render() {
-  graph.render();
-}
-
-defineExpose({ add, render });
+defineExpose({ add });
 
 onMounted(() => {
   init();
@@ -103,8 +132,4 @@ onMounted(() => {
   <div ref="graphRef"></div>
 </template>
 
-<style lang="scss" scoped>
-div {
-  background-color: #00000080;
-}
-</style>
+<style lang="scss" scoped></style>
