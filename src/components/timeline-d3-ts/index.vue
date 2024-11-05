@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import * as d3 from "d3";
 import { type D3ZoomEvent } from "d3";
-import { onMounted, reactive, ref, watch, watchEffect } from "vue";
+import { onMounted, ref } from "vue";
 import type { TimelineLink, TimelineNode, TimelineProps } from ".";
-import { Color } from "cesium";
 
 const props = defineProps<TimelineProps>();
 const state: TimelineProps = { lines: [], nodes: [], links: [], padding: [20, 20, 30, 70], width: 1024, height: 600 };

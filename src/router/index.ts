@@ -33,7 +33,12 @@ const router = createRouter({
       path: "/g6/tree",
       name: "tree",
       component: () => import("../views/G6TreeView.vue"),
-    }
+    },
+    {
+      path: "/gis/mars3d",
+      name: "mars3d",
+      component: () => import("../views/Mars3dView.vue"),
+    },
   ],
 });
 

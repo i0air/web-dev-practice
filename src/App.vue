@@ -14,6 +14,7 @@ import { RouterLink, RouterView } from "vue-router";
         <RouterLink to="/d3/plot">D3Plot</RouterLink>
         <RouterLink to="/pixi">Pixi</RouterLink>
         <RouterLink to="/g6/tree">G6Tree</RouterLink>
+        <RouterLink to="/gis/mars3d">Mars3D</RouterLink>
       </nav>
     </header>
     <RouterView />
