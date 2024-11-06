@@ -1,12 +1,6 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
-  "include": [
-    "vite.config.*",
-    "vitest.config.*",
-    "cypress.config.*",
-    "nightwatch.conf.*",
-    "playwright.config.*"
-  ],
+  "include": ["vite.config.ts", "vitest.config.*", "cypress.config.*", "nightwatch.conf.*", "playwright.config.*"],
   "compilerOptions": {
     "composite": true,
     "noEmit": true,
@@ -14,9 +8,6 @@
     "allowJs": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": [
-      "node",
-      "element-plus/global"
-    ]
+    "types": ["node", "element-plus/global"]
   }
 }

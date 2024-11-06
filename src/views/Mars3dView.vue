@@ -35,9 +35,8 @@ async function createMap() {
   /** 监听相机移动结束事件 */
   map.viewer.camera.moveEnd.addEventListener(() => {
     const m3dview = map?.getCameraView();
-    const cd = map?.viewer.camera.positionCartographic.height;
-    const lv = 27 - Math.log2(cd || 2e5);
-    console.log("相机移动结束", m3dview.alt, cd, lv);
+    const lv = 27 - Math.log2(m3dview.alt || 2e5);
+    console.log("相机移动结束", m3dview.alt, lv);
   });
 }
 
