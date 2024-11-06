@@ -6,6 +6,7 @@ import { onMounted, onUnmounted } from "vue";
 let map: mars3d.Map | null;
 let layer: mars3d.layer.GraphicLayer;
 
+/** 构建地图 */
 async function createMap() {
   map = new mars3d.Map("mars3dContainer", {
     control: { homeButton: true },
@@ -15,6 +16,7 @@ async function createMap() {
     },
   });
 
+  /** 添加本地图层服务 */
   const tileLayer = new mars3d.layer.XyzLayer({
     url: "//192.168.50.200:8888/L{sx}/R{sy}/C{sz}.jpg",
     customTags: {
@@ -26,11 +28,16 @@ async function createMap() {
   });
   map.addLayer(tileLayer);
 
+  /** 添加绘画图层 */
   layer = new mars3d.layer.GraphicLayer();
   map.addLayer(layer);
 
+  /** 监听相机移动结束事件 */
   map.viewer.camera.moveEnd.addEventListener(() => {
-    console.log("相机移动结束", map?.getCameraView());
+    const m3dview = map?.getCameraView();
+    const cd = map?.viewer.camera.positionCartographic.height;
+    const lv = 27 - Math.log2(cd || 2e5);
+    console.log("相机移动结束", m3dview.alt, cd, lv);
   });
 }
 
@@ -60,12 +67,15 @@ function tryTranslate() {
   drawLine([c, px], "#0000ff");
   drawLine([c, py], "#00ff00");
   drawLine([c, pz], "#ff0000");
+  drawPoint(px, "#0000ff", "X");
+  drawPoint(py, "#00ff00", "Y");
+  drawPoint(pz, "#ff0000", "Z");
 }
 
-function drawPoint(position: Cartesian3, color: string = "#00ff00") {
+function drawPoint(position: Cartesian3, color: string = "#00ff00", text: string = "") {
   const graphic = new mars3d.graphic.PointPrimitive({
     position,
-    style: { color, pixelSize: 3 },
+    style: { color, pixelSize: 3, label: { text } },
   });
   layer.addGraphic(graphic);
 }

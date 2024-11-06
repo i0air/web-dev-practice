@@ -2,19 +2,14 @@
 import { ElConfigProvider } from "element-plus";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
 import { RouterLink, RouterView } from "vue-router";
+import { routes } from "@/router";
 </script>
 
 <template>
   <el-config-provider :locale="zhCn">
     <header>
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/svgjs">SvgJs</RouterLink>
-        <RouterLink to="/d3/timeline">D3Timeline</RouterLink>
-        <RouterLink to="/d3/plot">D3Plot</RouterLink>
-        <RouterLink to="/pixi">Pixi</RouterLink>
-        <RouterLink to="/g6/tree">G6Tree</RouterLink>
-        <RouterLink to="/gis/mars3d">Mars3D</RouterLink>
+        <RouterLink v-for="(route, idx) in routes" :key="idx" :to="route.path">{{ route.name }}</RouterLink>
       </nav>
     </header>
     <RouterView />
