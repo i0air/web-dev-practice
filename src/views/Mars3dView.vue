@@ -28,6 +28,10 @@ async function createMap() {
 
   layer = new mars3d.layer.GraphicLayer();
   map.addLayer(layer);
+
+  map.viewer.camera.moveEnd.addEventListener(() => {
+    console.log("相机移动结束", map?.getCameraView());
+  });
 }
 
 function createPointBall() {
