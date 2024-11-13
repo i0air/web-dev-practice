@@ -1,6 +1,8 @@
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import { fileURLToPath, URL } from "node:url";
+import colors from "picocolors";
+import { LoggerWarnOptions } from "sass";
 import AutoImport from "unplugin-auto-import/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import Components from "unplugin-vue-components/vite";
@@ -24,7 +26,13 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@/assets/element/index.scss" as *;`,
+        api: "modern-compiler",
+        logger: {
+          warn: (message: string, options: LoggerWarnOptions) => {
+            if (options.deprecation) return;
+            console.warn("❗" + colors.yellow(`[scss]: ${message}`));
+          },
+        },
       },
     },
   },
