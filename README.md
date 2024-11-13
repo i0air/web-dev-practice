@@ -1,33 +1,36 @@
-# vue-fabric
+# 前端技术演练
 
-This template should help get you started developing with Vue 3 in Vite.
+本仓库用于测试前端技术，并保存一些常见用法和示例。
 
-## Recommended IDE Setup
+## 演练记录
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- [√] d3.js plot line
+- [×] d3.js timeline
+- [?] @antv/g6 tree layout
+- [√] pixi.js
+- [√] svgjs.js
+- [√] mars3d
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## 工程设置
 
 ```sh
-npm install
+pnpm install
 ```
 
 ### Compile and Hot-Reload for Development
 
 ```sh
-npm run dev
+pnpm dev
 ```
 
 ### Type-Check, Compile and Minify for Production
 
 ```sh
-npm run build
+pnpm build
+```
+
+### Code Format
+
+```sh
+pnpm format
 ```

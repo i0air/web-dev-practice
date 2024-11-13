@@ -8,12 +8,14 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import Components from "unplugin-vue-components/vite";
 import { defineConfig } from "vite";
 import { mars3dPlugin } from "vite-plugin-mars3d";
+import svgLoader from "vite-svg-loader";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    svgLoader(),
     mars3dPlugin(),
     AutoImport({ resolvers: [ElementPlusResolver({ importStyle: "sass" })] }),
     Components({ resolvers: [ElementPlusResolver({ importStyle: "sass" })] }),
@@ -30,7 +32,7 @@ export default defineConfig({
         logger: {
           warn: (message: string, options: LoggerWarnOptions) => {
             if (options.deprecation) return;
-            console.warn("❗" + colors.yellow(`[scss]: ${message}`));
+            console.warn("?" + colors.yellow(`[scss]: ${message}`));
           },
         },
       },
