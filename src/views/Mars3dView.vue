@@ -11,14 +11,14 @@ async function createMap() {
   map = new mars3d.Map("mars3dContainer", {
     control: { homeButton: true },
     scene: {
-      center: { lng: 121.5, lat: 23.5, alt: 2e5, heading: 0, pitch: -90 },
+      center: { lng: 121.42, lat: 22.13, alt: 1e5, heading: 0, pitch: -34 },
       globe: { depthTestAgainstTerrain: true },
     },
   });
 
   /** 添加本地图层服务 */
   const tileLayer = new mars3d.layer.XyzLayer({
-    url: "//192.168.50.200:8888/L{sx}/R{sy}/C{sz}.jpg",
+    url: "//192.168.50.200:8888/tms/L{sx}/R{sy}/C{sz}.jpg",
     customTags: {
       sx: (_: mars3d.layer.XyzLayer, _z: number, _y: number, x: number) => x.toString().padStart(2, "0").toUpperCase(),
       sy: (_: unknown, _z: number, y: number) => y.toString(16).padStart(8, "0").toUpperCase(),
@@ -28,6 +28,12 @@ async function createMap() {
   });
   map.addLayer(tileLayer);
 
+  /** 添加地形图层服务 */
+  const terrainLayer = new mars3d.layer.TerrainLayer({
+    url: "//192.168.50.200:8888/terrain",
+  });
+  map.addLayer(terrainLayer);
+
   /** 添加绘画图层 */
   layer = new mars3d.layer.GraphicLayer();
   map.addLayer(layer);
@@ -36,7 +42,7 @@ async function createMap() {
   map.viewer.camera.moveEnd.addEventListener(() => {
     const m3dview = map?.getCameraView();
     const lv = 27 - Math.log2(m3dview.alt || 2e5);
-    console.log("相机移动结束", m3dview.alt, lv);
+    console.log("相机移动结束，地图层级", lv.toFixed(1), JSON.stringify(m3dview));
   });
 }
 
@@ -51,7 +57,7 @@ function createPointBall() {
 
   const points = generatePoints(center, 25000, 1000);
   for (const point of points) {
-    drawPoint(point);
+    const color = drawPoint(point);
   }
 }
 
