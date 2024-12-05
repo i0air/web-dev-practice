@@ -41,5 +41,14 @@ export default defineConfig({
   server: {
     port: 8000,
     host: true,
+    proxy: {
+      "/api": {
+        target: "http://192.168.50.103:7878",
+        changeOrigin: true,
+        ws: true,
+        // rewrite: (path) => path.replace(/^\/dev/, ""),
+        secure: false, // 如果是https接口，需要配置这个参数
+      },
+    },
   },
 });

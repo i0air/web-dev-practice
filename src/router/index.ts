@@ -44,6 +44,12 @@ export const routes: RouteRecordRaw[] = [
     component: () => import("../views/Mars3dView.vue"),
     meta: { icon: "earth" },
   },
+  {
+    path: "/python-api-test",
+    name: "PythonApiTest",
+    component: () => import("../views/PythonApiTest.vue"),
+    meta: { icon: "logos-python" },
+  },
 ];
 
 export const router = createRouter({ history: createWebHistory(import.meta.env.BASE_URL), routes });

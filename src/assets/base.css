@@ -57,6 +57,16 @@
   margin: 0;
   font-weight: normal;
 }
+*::-webkit-scrollbar {
+  border-radius: 5px;
+  background-color: rgba(6, 107, 128, 0.3);
+  width: 5px;
+  height: 5px;
+}
+*::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgba(73, 117, 139, 0.5);
+}
 
 body {
   transition:
